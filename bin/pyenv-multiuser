@@ -136,10 +136,11 @@ user_init() {
     fi
 
     if [ -z "$PYENV_LOCAL_SHIM" ]; then
-        echo -n "PYENV_LOCAL_SHIM not set. Would you like to use '$SHIM_DIR'? [Y/n] "
-        read USE_DEFAULT
-        USE_DEFAULT=${USE_DEFAULT:-y}
-
+        if test -z "$USE_DEFAULT"; then
+            echo -n "PYENV_LOCAL_SHIM not set. Would you like to use '$SHIM_DIR'? [Y/n] "
+            read USE_DEFAULT
+            USE_DEFAULT=${USE_DEFAULT:-y}
+        fi
         case "$USE_DEFAULT" in
             y | Y)
                 echo "Setting PYENV_LOCAL_SHIM in profile"
